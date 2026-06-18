@@ -3,6 +3,7 @@ import { getStore } from "@/lib/memory/store";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);

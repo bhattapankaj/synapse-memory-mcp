@@ -15,6 +15,19 @@ function toBlob(vec: Float32Array): Buffer {
   return Buffer.from(vec.buffer, vec.byteOffset, vec.byteLength);
 }
 
+/**
+ * Default DB location. Serverless platforms (Vercel, Lambda) ship a read-only
+ * filesystem except for /tmp, so fall back there. Note: /tmp is ephemeral and
+ * per-instance, so persistence on serverless lasts only for a warm instance.
+ */
+function defaultDbPath(): string {
+  if (process.env.SYNAPSE_DB_PATH) return process.env.SYNAPSE_DB_PATH;
+  if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+    return "/tmp/synapse/synapse.db";
+  }
+  return "./data/synapse.db";
+}
+
 interface MemoryRow {
   rowid: number;
   uid: string;
@@ -51,9 +64,7 @@ export class MemoryStore {
   private ready = false;
 
   constructor(dbPath?: string) {
-    const path = resolve(
-      dbPath || process.env.SYNAPSE_DB_PATH || "./data/synapse.db",
-    );
+    const path = resolve(dbPath || defaultDbPath());
     const dir = dirname(path);
     if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 

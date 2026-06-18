@@ -37,6 +37,10 @@ async function getExtractor() {
       const { pipeline, env } = await import("@huggingface/transformers");
       // Keep everything offline-friendly and cached locally.
       env.allowLocalModels = true;
+      // Serverless filesystems are read-only except /tmp; cache the model there.
+      if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
+        env.cacheDir = "/tmp/transformers-cache";
+      }
       return pipeline("feature-extraction", LOCAL_MODEL);
     })();
   }

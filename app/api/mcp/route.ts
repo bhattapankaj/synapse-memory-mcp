@@ -5,6 +5,7 @@ import { SYNAPSE_SERVER_INFO } from "@/lib/mcp/server";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 const PROTOCOL_VERSION = "2025-06-18";
 
