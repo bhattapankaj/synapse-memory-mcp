@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { MemoryGraph } from "@/components/memory-graph";
 import { SiteFooter } from "@/components/site-footer";
+import { ShowcaseNotice } from "@/components/ui/showcase-notice";
 import { IconStore, IconSearch, IconTrash } from "@/components/ui/icons";
 import type { MemoryHit, MemoryRecord, MemoryStats } from "@/lib/memory/types";
 
@@ -118,6 +119,8 @@ export default function DashboardPage() {
             entry here is the same store your MCP clients read and write.
           </p>
         </div>
+
+        <ShowcaseNotice />
 
         {/* Stats */}
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">

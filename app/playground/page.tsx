@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SiteFooter } from "@/components/site-footer";
+import { ShowcaseNotice } from "@/components/ui/showcase-notice";
 import {
   IconStore,
   IconSearch,
@@ -137,6 +138,8 @@ export default function PlaygroundPage() {
             .
           </p>
         </div>
+
+        <ShowcaseNotice />
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_300px]">
           {/* Chat */}
